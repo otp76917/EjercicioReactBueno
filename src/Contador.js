@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-function Contador(){
-    
-    const [contador , setContador] = useState(0);
+function Contador() {
+  const [count, setCount] = useState(0);
 
-    return (
-        <div>
-            <h2>Contador:{contador}</h2>
-            <button onClick={()=>setContador(contador+1)}>Incrementar</button>
-            <button onClick={()=>setContador(contador-1)}>Decrementar</button>
-        </div>
-    );
+  return (
+    <div>
+      <p>Contador: {count}</p>
+      <button onClick={() => setCount(count   
+ + 1)}>Incrementar</button>
+      <button onClick={() => setCount(count - 1)}>Decrementar</button>
+    </div>
+  );
 }
 
 export default Contador;
