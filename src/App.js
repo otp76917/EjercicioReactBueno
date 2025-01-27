@@ -1,24 +1,25 @@
 import React from 'react';
 import './App.css';
-import Contador from './Contador';
-import BuscadorProductos from './BuscadorProductos';
+import { BrowserRouter, Routes, Route } from 'react-router';
+import Layout from './Layout';
+import Inicio from './componentes/Inicio';
+import AcercaDeMi from './componentes/AcercaDeMi';
+import CasosDeExito from './componentes/CasosDeExito';
+import Contacto from './componentes/Contacto';
 
-const productos = [
-  { id: 1, nombre: 'Manzana' },
-  { id: 2, nombre: 'Banana' },
-  { id: 3, nombre: 'Naranja' },
-  { id: 4, nombre: 'Pera' }
-];
-
-<BuscadorProductos productos={productos} />
-
-function App() {
-  return (
-    <div className="App">
-      <BuscadorProductos productos={productos} />
-
-    </div>
-  );
+function App() 
+{
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout/>}/>
+        <Route index element={<Inicio/>}/>
+        <Route path='/AcercaDeMi' element={<AcercaDeMi/>}/>
+        <Route path='CasosDeExito' element={<CasosDeExito/>}/>
+        <Route path='Contacto' element={<Contacto/>}/>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
