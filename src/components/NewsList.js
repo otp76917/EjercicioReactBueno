@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function NewsList() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // Fetch the JSON data
-    fetch('/data/noticias.json') // Correct path, relative to public/index.html
-      .then(response => response.json())
-      .then(data => setNews(data))
-      .catch(error => console.error("Error fetching news:", error)); // Error handling
+    fetch('./data/noticias.json')
+      .then(res => res.json())
+      .then(data => {
+        // Generar IDs únicos para las noticias si no existen
+        const newsWithIds = data.map((item, index) => ({
+          ...item,
+          id: item.id || index + 1 // Usar ID existente o generar uno nuevo
+        }));
+        setNews(newsWithIds);
+      });
   }, []);
-
-  if (news.length === 0) { // Display a message while loading
-    return <div>Loading news...</div>;
-  }
-
 
   return (
     <div>
       <h1>Noticias</h1>
       <ul>
-        {news.map((item) => (
-          <li key={item.titulo}>
-            <Link to={`/noticias/${item.titulo}`}>{item.titulo}</Link>
+        {news.map(item => (
+          <li key={item.id}>
+            <Link to={`/news/${item.id}`}>{item.titulo}</Link>
           </li>
         ))}
       </ul>

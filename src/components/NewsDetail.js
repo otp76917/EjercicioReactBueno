@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router'
-import noticias from '../data/noticias.json'
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 function NewsDetail() {
-  const { id } = useParams()
-  const [newsItem, setNewsItem] = useState(null)
+  const { id } = useParams();
+  const [newsItem, setNewsItem] = useState(null);
 
   useEffect(() => {
-    fetch(noticias)
-    .then(response => response.json())
-    .then(data => {
-        const foundNewsItem = data.find((item) => item.id === parseInt(id))
-        setNewsItem(foundNewsItem)
-    })
-    .catch(error => console.error("Error fetching news:", error))
-  }, [id])
+    fetch('./data/noticias.json')
+      .then(res => res.json())
+      .then(data => {
+        // Generar IDs únicos para las noticias si no existen
+        const newsWithIds = data.map((item, index) => ({
+          ...item,
+          id: item.id || index + 1 // Usar ID existente o generar uno nuevo
+        }));
+
+        const item = newsWithIds.find(news => news.id === parseInt(id));
+        setNewsItem(item);
+      });
+  }, [id]);
 
   if (!newsItem) {
-    return <div>Loading...</div>
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -29,7 +33,7 @@ function NewsDetail() {
       <p><strong>Fecha:</strong> {newsItem.fecha}</p>
       <Link to="/">Volver al listado</Link>
     </div>
-  )
+  );
 }
 
-export default NewsDetail
+export default NewsDetail;

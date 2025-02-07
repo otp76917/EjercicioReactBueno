@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NewsList from './components/NewsList';
 import NewsDetail from './components/NewsDetail';
 import NavigationBar from './components/NavigationBar';
